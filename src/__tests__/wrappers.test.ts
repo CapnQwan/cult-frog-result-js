@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { err, ok } from './wrappers.js';
+import { err, ok } from '../wrappers.js';
 
 describe('ok', () => {
   it('wraps a value in a successful result', () => {

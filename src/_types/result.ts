@@ -24,6 +24,6 @@ import type { Ok } from './ok.js';
  * ```
  *
  * @typeParam T - The type of the success value.
- * @typeParam E - The type of the error value. Defaults to `Error`.
+ * @typeParam C - The code of the error value. Defaults to string.
  */
-export type Result<T, E = Error> = Ok<T> | Err<E>;
+export type Result<T, C extends string = string> = Ok<T> | Err<C>;

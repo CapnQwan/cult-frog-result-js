@@ -5,9 +5,13 @@
  *
  * @typeParam E - The type of the error value. Defaults to `Error`.
  */
-export interface Err<E = Error> {
+export interface Err<C extends string = string> {
   /** Discriminant, always `false` for an `Err`. */
   readonly success: false;
-  /** The error describing why the operation failed. */
-  readonly error: E;
+  /** The code describing why the operation failed. */
+  readonly code: C;
+  /** The message describing why the operation failed. */
+  readonly message: string;
+  /** The stack trace describing why the operation failed. */
+  readonly stack?: string;
 }

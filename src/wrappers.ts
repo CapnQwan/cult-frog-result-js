@@ -1,6 +1,9 @@
 import type { Err } from './_types/err.js';
 import type { Ok } from './_types/ok.js';
 
+export function ok(): Ok<undefined>;
+export function ok<T>(data: T): Ok<T>;
+
 /**
  * Wraps a value in a successful `Result`.
  *
@@ -13,7 +16,7 @@ import type { Ok } from './_types/ok.js';
  * @param data - The value to wrap.
  * @returns An {@link Ok} holding `data`.
  */
-export function ok<T>(data: T): Ok<T> {
+export function ok<T>(data?: T): Ok<T | undefined> {
   return { success: true, data };
 }
 
@@ -33,6 +36,6 @@ export function ok<T>(data: T): Ok<T> {
  * @param error - The error to wrap.
  * @returns An {@link Err} holding `error`.
  */
-export function err<E = Error>(error: E): Err<E> {
-  return { success: false, error };
+export function err<C extends string = string>(options: Omit<Err<C>, 'success'>): Err<C> {
+  return { success: false, ...options };
 }

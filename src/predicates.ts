@@ -16,7 +16,7 @@ import type { Result } from './_types/result.js';
  * @param result - The result to check.
  * @returns `true` if `result` is an {@link Ok}.
  */
-export function isOk<T, E>(result: Result<T, E>): result is Ok<T> {
+export function isOk<T, C extends string>(result: Result<T, C>): result is Ok<T> {
   return result.success;
 }
 
@@ -34,6 +34,6 @@ export function isOk<T, E>(result: Result<T, E>): result is Ok<T> {
  * @param result - The result to check.
  * @returns `true` if `result` is an {@link Err}.
  */
-export function isErr<T, E>(result: Result<T, E>): result is Err<E> {
+export function isErr<T, C extends string>(result: Result<T, C>): result is Err<C> {
   return !result.success;
 }

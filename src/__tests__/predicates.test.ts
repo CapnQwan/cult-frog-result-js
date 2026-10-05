@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { isErr, isOk } from './predicates.js';
-import { err, ok } from './wrappers.js';
+import { isErr, isOk } from '../predicates.js';
+import { err, ok } from '../wrappers.js';
 
-import type { Result } from './_types/result.js';
+import type { Result } from '../_types/result.js';
 
 describe('isOk', () => {
   it('returns true for an Ok', () => {

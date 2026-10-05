@@ -1,9 +1,9 @@
 import { describe, expectTypeOf, it } from 'vitest';
 
-import { isErr, isOk } from './predicates.js';
-import { err, ok } from './wrappers.js';
+import { isErr, isOk } from '../predicates.js';
+import { err, ok } from '../wrappers.js';
 
-import type { Err, Ok, Result } from './_types/index.js';
+import type { Err, Ok, Result } from '../_types/index.js';
 
 describe('Result', () => {
   it('is a union of Ok and Err', () => {
