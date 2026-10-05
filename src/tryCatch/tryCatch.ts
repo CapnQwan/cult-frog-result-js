@@ -1,8 +1,8 @@
-import { fromThrown } from './fromError.js';
-import { ok } from './wrappers.js';
+import { fromThrown } from '../fromThrown.js';
+import { ok } from '../wrappers/ok.js';
 
-import type { Err } from './_types/err.js';
-import type { Result } from './_types/result.js';
+import type { Err } from '../_types/err.js';
+import type { Result } from '../_types/result.js';
 
 export function tryCatch<T>(fn: () => T): Result<T, 'UNKNOWN'>;
 export function tryCatch<T, C extends string>(

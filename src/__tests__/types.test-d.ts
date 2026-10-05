@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 
-import { isErr, isOk } from '../predicates.js';
+import { isErr, isOk } from '../predicates/isErr.js';
 import { err, ok } from '../wrappers.js';
 
 import type { Err, Ok, Result } from '../_types/index.js';

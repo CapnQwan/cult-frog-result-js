@@ -1,8 +1,8 @@
-import { fromThrown } from './fromError.js';
-import { err, ok } from './wrappers.js';
+import { fromThrown } from '../fromThrown.js';
+import { ok } from '../wrappers/ok.js';
 
-import type { Err } from './_types/err.js';
-import type { Result } from './_types/result.js';
+import type { Err } from '../_types/err.js';
+import type { Result } from '../_types/result.js';
 
 export function tryCatchAsync<T>(fn: () => Promise<T>): Promise<Result<T, 'UNKNOWN'>>;
 export function tryCatchAsync<T, C extends string>(
@@ -16,6 +16,6 @@ export async function tryCatchAsync<T, C extends string>(
   try {
     return ok(await fn());
   } catch (thrown) {
-    return err(mapError(thrown));
+    return mapError(thrown);
   }
 }
