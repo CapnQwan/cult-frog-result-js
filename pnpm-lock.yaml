@@ -12,8 +12,8 @@ importers:
         specifier: ^2.5.13
         version: 2.5.13
       '@cult-frog/tooling':
-        specifier: ^0.1.1
-        version: 0.1.1(vitest@5.0.0(@types/node@22.20.2)(vite@8.3.0(@types/node@22.20.2)(yaml@2.9.0)))
+        specifier: ^0.1.2
+        version: 0.1.2(vitest@5.0.0(@types/node@22.20.2)(vite@8.3.0(@types/node@22.20.2)(yaml@2.9.0)))
       '@types/node':
         specifier: ^22.20.2
         version: 22.20.2
@@ -92,8 +92,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cult-frog/tooling@0.1.1':
-    resolution: {integrity: sha512-x7leGytEe29awlq66/7dt4sDyxXIiqbPrHIv7OxdPDzPfe3LJlptJL4VE+vtwmqiRBAffDT9KeH/xyJKN/eeHA==}
+  '@cult-frog/tooling@0.1.2':
+    resolution: {integrity: sha512-fTNHkCB9KFlE9gTugvtDyx2R1gdXlY+cp5XqNs1OJ9Ft3sz86RtLdwmXOdsMy/U3ZpW000M59s/RrpVncyke6Q==}
     engines: {node: '>=20.19'}
     peerDependencies:
       vitest: ^5.0.0
@@ -712,7 +712,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.5.13':
     optional: true
 
-  '@cult-frog/tooling@0.1.1(vitest@5.0.0(@types/node@22.20.2)(vite@8.3.0(@types/node@22.20.2)(yaml@2.9.0)))':
+  '@cult-frog/tooling@0.1.2(vitest@5.0.0(@types/node@22.20.2)(vite@8.3.0(@types/node@22.20.2)(yaml@2.9.0)))':
     dependencies:
       vitest: 5.0.0(@types/node@22.20.2)(vite@8.3.0(@types/node@22.20.2)(yaml@2.9.0))
 
