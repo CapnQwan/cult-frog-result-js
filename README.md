@@ -231,7 +231,7 @@ The codes returned by `mapError` become the codes of the result. `mapError` is o
 
 ### Serialization
 
-Results are plain objects, so they survive `JSON.stringify`, `structuredClone` and `postMessage` unchanged. This makes them safe to return from API handlers, send between workers, or store:
+Results are plain objects with no classes or prototypes, so they can be returned from API handlers, sent between workers, or stored like any other data:
 
 ```ts
 const result = err({ code: 'NOT_FOUND', message: 'User 42 does not exist' });
@@ -239,6 +239,15 @@ const result = err({ code: 'NOT_FOUND', message: 'User 42 does not exist' });
 JSON.parse(JSON.stringify(result));
 // { success: false, code: 'NOT_FOUND', message: 'User 42 does not exist' }
 ```
+
+A failure always round-trips unchanged. A success round-trips as well as its `data` does: `structuredClone` and `postMessage` keep any cloneable value, but `JSON.stringify` follows the usual JSON rules, so a `Date` comes back as a string and `ok()` comes back without its `data` key.
+
+> [!NOTE]
+> Failures converted from thrown values by `tryCatch`, `tryCatchAsync` and `fromThrown` include the original stack trace, which is useful for debugging but can reveal file paths and other internals. Remove `stack` before sending a result outside your system, for example to an API client:
+>
+> ```ts
+> const { stack, ...publicResult } = result;
+> ```
 
 ## API reference
 
