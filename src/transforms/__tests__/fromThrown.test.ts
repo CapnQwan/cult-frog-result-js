@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { fromThrown } from '../transforms/fromThrown.js';
+import { fromThrown } from '../fromThrown.js';
 
 describe('fromThrown', () => {
   it('keeps the message and stack of an Error', () => {
