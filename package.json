@@ -1,11 +1,17 @@
 {
   "name": "@cult-frog/result",
   "version": "0.1.0",
-  "description": "A TypeScript library for wrapping errors for explicit encapsulation",
+  "description": "A lightweight, dependency-free Result type for explicit, type-safe error handling in TypeScript",
   "license": "MIT",
   "author": "Quin Partridge",
   "keywords": [
+    "result",
+    "result-type",
     "error",
+    "error-handling",
+    "either",
+    "discriminated-union",
+    "try-catch",
     "typescript"
   ],
   "repository": {

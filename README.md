@@ -39,7 +39,7 @@ yarn add @cult-frog/result
 ### Requirements
 
 - Node.js 20.19 or later, or any modern bundler.
-- The package is published as an ES module only.
+- The package is published as an ES module only. CommonJS code can still load it with `require()` on Node.js 20.19 or later; in a CommonJS TypeScript project, this needs TypeScript 5.8 or later with `"module": "nodenext"`.
 - TypeScript 5.0 or later, if you use TypeScript.
 
 ## Quick start
