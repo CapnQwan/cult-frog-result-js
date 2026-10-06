@@ -1,6 +1,6 @@
 {
   "name": "@cult-frog/result",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A TypeScript library for wrapping errors for explicit encapsulation",
   "license": "MIT",
   "author": "Quin Partridge",
@@ -47,7 +47,7 @@
     "check": "biome check . --error-on-warnings",
     "check:ci": "biome ci . --error-on-warnings",
     "fix": "biome check . --write",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "pnpm check:ci && pnpm typecheck && pnpm test && pnpm build",
     "prepare": "husky"
   },
   "packageManager": "pnpm@10.33.4",

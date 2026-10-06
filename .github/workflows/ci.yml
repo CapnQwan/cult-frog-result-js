@@ -13,5 +13,12 @@ concurrency:
 
 jobs:
   check:
+    name: check (Node ${{ matrix.node-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # 20.19 is the minimum in package.json `engines`; 22 and 24 are the supported LTS lines.
+        node-version: ["20.19", "22", "24"]
     uses: CapnQwan/cult-frog-tooling-js/.github/workflows/reusable-ci.yml@main
-    
+    with:
+      node-version: ${{ matrix.node-version }}
