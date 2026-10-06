@@ -205,7 +205,7 @@ By default, whatever is thrown is converted into a failure with the code `'UNKNO
 
 | Thrown value | `message` | `stack` |
 | --- | --- | --- |
-| An `Error`, or an instance of a subclass | The error's `message` | The error's `stack`, if it has one |
+| An `Error`, an instance of a subclass, or an error from another realm (such as an iframe or a Node `vm` context) | The error's `message` | The error's `stack`, if it has one |
 | A string | The string | Not included |
 | Anything else | `'Non-Error value thrown'` | Not included |
 

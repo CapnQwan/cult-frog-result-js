@@ -1,3 +1,4 @@
+import { isError } from '../predicates/isError.js';
 import { err } from '../wrappers/err.js';
 
 import type { Err } from '../_types/err.js';
@@ -9,7 +10,9 @@ import type { Err } from '../_types/err.js';
  * `tryCatchAsync`. Because JavaScript allows any value to be thrown, the
  * conversion depends on what was thrown:
  *
- * - An `Error` keeps its `message` and, if it has one, its `stack`.
+ * - An `Error` keeps its `message` and, if it has one, its `stack`. This
+ *   includes errors created in another realm, such as an iframe or a Node
+ *   `vm` context, which fail an `instanceof Error` check.
  * - A string becomes the `message`.
  * - Any other value gets the message `'Non-Error value thrown'`.
  *
@@ -29,7 +32,7 @@ import type { Err } from '../_types/err.js';
  * @returns An {@link Err} with the code `'UNKNOWN'` describing `thrown`.
  */
 export function fromThrown(thrown: unknown): Err<'UNKNOWN'> {
-  if (thrown instanceof Error) {
+  if (isError(thrown)) {
     if (thrown.stack === undefined) return err({ code: 'UNKNOWN', message: thrown.message });
     return err({ code: 'UNKNOWN', message: thrown.message, stack: thrown.stack });
   }
