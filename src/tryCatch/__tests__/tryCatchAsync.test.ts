@@ -46,6 +46,19 @@ describe('tryCatchAsync', () => {
     expect(result).toStrictEqual({ success: false, code: 'FETCH', message: 'Could not fetch' });
   });
 
+  it('rejects when mapError throws', async () => {
+    const mapperError = new Error('mapper');
+
+    await expect(
+      tryCatchAsync(
+        () => Promise.reject(new Error('boom')),
+        () => {
+          throw mapperError;
+        }
+      )
+    ).rejects.toThrow(mapperError);
+  });
+
   it('does not call mapError when the promise resolves', async () => {
     const mapError = vi.fn(() => err({ code: 'FETCH', message: 'Could not fetch' }));
 

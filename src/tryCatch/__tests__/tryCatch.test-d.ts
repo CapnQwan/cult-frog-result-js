@@ -1,5 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 
+import { fromThrown } from '../../transforms/fromThrown.js';
 import { err } from '../../wrappers/err.js';
 import { tryCatch } from '../tryCatch.js';
 
@@ -18,6 +19,18 @@ describe('tryCatch', () => {
     );
 
     expectTypeOf(result).toEqualTypeOf<Result<number, 'PARSE'>>();
+  });
+
+  it('combines the codes when mapError falls back to fromThrown', () => {
+    const result = tryCatch(
+      () => 42,
+      (thrown) =>
+        thrown instanceof SyntaxError
+          ? err({ code: 'INVALID_JSON', message: thrown.message })
+          : fromThrown(thrown)
+    );
+
+    expectTypeOf(result).toEqualTypeOf<Result<number, 'INVALID_JSON' | 'UNKNOWN'>>();
   });
 
   it('passes the thrown value to mapError as unknown', () => {

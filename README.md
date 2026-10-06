@@ -227,7 +227,22 @@ const result = await tryCatchAsync(
 // Result<Response, 'NETWORK_ERROR'>
 ```
 
-The codes returned by `mapError` become the codes of the result. `mapError` is only called when the function throws or rejects.
+The codes returned by `mapError` become the codes of the result. `mapError` is only called when the function throws or rejects. If `mapError` itself throws, that error is not caught: `tryCatch` throws it and `tryCatchAsync` rejects with it.
+
+The default conversion is exported as `fromThrown`, so a `mapError` can handle the failures it knows about and fall back to it for everything else:
+
+```ts
+import { err, fromThrown, tryCatch } from '@cult-frog/result';
+
+const result = tryCatch(
+  () => JSON.parse(input),
+  (thrown) =>
+    thrown instanceof SyntaxError
+      ? err({ code: 'INVALID_JSON', message: thrown.message })
+      : fromThrown(thrown)
+);
+// Result<any, 'INVALID_JSON' | 'UNKNOWN'>
+```
 
 ### Serialization
 
@@ -333,7 +348,7 @@ function tryCatch<T, C extends string>(
 ): Result<T, C>;
 ```
 
-Calls `fn` immediately and returns its value as a success. If `fn` throws, returns the result of `mapError`, or a failure with the code `'UNKNOWN'` when no `mapError` is given. Does not wait for promises; use `tryCatchAsync` for asynchronous functions.
+Calls `fn` immediately and returns its value as a success. If `fn` throws, returns the result of `mapError`, or a failure with the code `'UNKNOWN'` when no `mapError` is given. If `mapError` throws, the error is thrown to the caller. Does not wait for promises; use `tryCatchAsync` for asynchronous functions.
 
 #### `tryCatchAsync(fn, mapError?)`
 
@@ -346,6 +361,14 @@ function tryCatchAsync<T, C extends string>(
 ```
 
 Calls `fn` immediately and resolves to its resolved value as a success. If `fn` rejects or throws, resolves to the result of `mapError`, or a failure with the code `'UNKNOWN'` when no `mapError` is given. The returned promise does not reject unless `mapError` throws.
+
+#### `fromThrown(thrown)`
+
+```ts
+function fromThrown(thrown: unknown): Err<'UNKNOWN'>;
+```
+
+Converts a thrown value into a failure with the code `'UNKNOWN'`, as described in [Wrapping code that throws](#wrapping-code-that-throws). This is the default conversion used by `tryCatch` and `tryCatchAsync`, and can be used as a fallback inside a custom `mapError`.
 
 ## License
 

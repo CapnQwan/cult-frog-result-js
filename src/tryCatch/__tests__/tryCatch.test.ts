@@ -50,6 +50,21 @@ describe('tryCatch', () => {
     expect(result).toStrictEqual({ success: false, code: 'PARSE', message: 'Could not parse' });
   });
 
+  it('throws to the caller when mapError throws', () => {
+    const mapperError = new Error('mapper');
+
+    expect(() =>
+      tryCatch(
+        () => {
+          throw new Error('boom');
+        },
+        () => {
+          throw mapperError;
+        }
+      )
+    ).toThrow(mapperError);
+  });
+
   it('does not call mapError when the function succeeds', () => {
     const mapError = vi.fn(() => err({ code: 'PARSE', message: 'Could not parse' }));
 

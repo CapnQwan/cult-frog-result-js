@@ -46,7 +46,8 @@ export function tryCatch<T>(fn: () => T): Result<T, 'UNKNOWN'>;
  *
  * If `fn` returns, its return value is wrapped in an `Ok`. If it throws,
  * `mapError` is called with the thrown value and its return value is used as
- * the result. `mapError` is not called when `fn` returns.
+ * the result. `mapError` is not called when `fn` returns. If `mapError`
+ * itself throws, that error is not caught and is thrown to the caller.
  *
  * `tryCatch` does not wait for promises. If `fn` returns a promise, the
  * promise itself is wrapped in an `Ok` and any rejection is not caught. Use
