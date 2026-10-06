@@ -9,10 +9,10 @@ export function tryCatchAsync<T, C extends string>(
   fn: () => Promise<T>,
   mapError: (thrown: unknown) => Err<C>
 ): Promise<Result<T, C>>;
-export async function tryCatchAsync<T, C extends string>(
+export async function tryCatchAsync<T>(
   fn: () => Promise<T>,
-  mapError = fromThrown as (thrown: unknown) => Err<C>
-): Promise<Result<T, C>> {
+  mapError: (thrown: unknown) => Err = fromThrown
+): Promise<Result<T, string>> {
   try {
     return ok(await fn());
   } catch (thrown) {

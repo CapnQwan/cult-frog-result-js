@@ -16,6 +16,6 @@ import type { Err } from '../_types/err.js';
  * @param error - The error to wrap.
  * @returns An {@link Err} holding `error`.
  */
-export function err<C extends string = string>(options: Omit<Err<C>, 'success'>): Err<C> {
+export function err<const C extends string = string>(options: Omit<Err<C>, 'success'>): Err<C> {
   return { success: false, ...options };
 }

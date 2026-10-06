@@ -9,9 +9,9 @@ export function tryCatch<T, C extends string>(
   fn: () => T,
   mapError: (thrown: unknown) => Err<C>
 ): Result<T, C>;
-export function tryCatch<T, C extends string>(
+export function tryCatch<T>(
   fn: () => T,
-  mapError = fromThrown as (thrown: unknown) => Err<C>
+  mapError: (thrown: unknown) => Err = fromThrown
 ): Result<T, string> {
   try {
     return ok(fn());
