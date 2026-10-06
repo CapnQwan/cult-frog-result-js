@@ -8,8 +8,9 @@ import type { Err } from '../_types/err.js';
  * function, annotate the function's return type, or pass the codes explicitly
  * as a type argument.
  *
- * The returned object is a new, plain object. `stack` is only included when
- * it is provided.
+ * The returned object is a new, plain object built from `code`, `message` and
+ * `stack` only; any other properties of `options` are ignored. `stack` is only
+ * included when it is provided and not `undefined`.
  *
  * @example
  * ```ts
@@ -34,5 +35,7 @@ import type { Err } from '../_types/err.js';
  * @returns An {@link Err} with the given code, message and stack.
  */
 export function err<const C extends string = string>(options: Omit<Err<C>, 'success'>): Err<C> {
-  return { success: false, ...options };
+  const { code, message, stack } = options;
+  if (stack === undefined) return { success: false, code, message };
+  return { success: false, code, message, stack };
 }

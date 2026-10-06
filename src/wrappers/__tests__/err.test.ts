@@ -36,6 +36,30 @@ describe('err', () => {
     expect(err(options)).not.toBe(options);
   });
 
+  it('always sets success to false, even if the options have a success property', () => {
+    const options = { code: 'NOT_FOUND', message: 'Not found', success: true };
+
+    expect(err(options)).toStrictEqual({ success: false, code: 'NOT_FOUND', message: 'Not found' });
+  });
+
+  it('ignores properties other than code, message and stack', () => {
+    const options = { code: 'NOT_FOUND', message: 'Not found', stack: 'trace', userId: 42 };
+
+    expect(err(options)).toStrictEqual({
+      success: false,
+      code: 'NOT_FOUND',
+      message: 'Not found',
+      stack: 'trace',
+    });
+  });
+
+  it('omits the stack when it is undefined', () => {
+    const options = { code: 'NOT_FOUND', message: 'Not found', stack: undefined };
+
+    // @ts-expect-error rejected under exactOptionalPropertyTypes, but allowed for consumers without it
+    expect(err(options)).not.toHaveProperty('stack');
+  });
+
   it('returns a plain object that survives a JSON round trip', () => {
     const failure = err({ code: 'NOT_FOUND', message: 'Not found', stack: 'Error: Not found' });
 
