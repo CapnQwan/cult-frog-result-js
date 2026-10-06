@@ -1,13 +1,23 @@
 /**
- * The successful variant of a `Result`.
+ * The successful variant of a `Result`, holding the value an operation
+ * produced.
  *
- * Narrow to this variant with `result.success` or `isOk`.
+ * Create one with `ok`. Given a `Result`, narrow to this variant by
+ * checking `result.success` or calling `isOk`.
  *
- * @typeParam T - The type of the success value.
+ * @example
+ * ```ts
+ * const result: Ok<number> = ok(42);
+ *
+ * result.success; // true
+ * result.data; // 42
+ * ```
+ *
+ * @typeParam T - The type of the value produced by the operation.
  */
 export interface Ok<T> {
-  /** Discriminant, always `true` for an `Ok`. */
+  /** Discriminant that identifies an `Ok`. Always `true`. */
   readonly success: true;
-  /** The value produced by the successful operation. */
+  /** The value produced by the operation. */
   readonly data: T;
 }

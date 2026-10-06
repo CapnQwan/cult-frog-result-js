@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 
-import { fromThrown } from '../fromThrown.js';
+import { fromThrown } from '../transforms/fromThrown.js';
 
 import type { Err, Result } from '../_types/index.js';
 
