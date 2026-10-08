@@ -4,6 +4,8 @@ All notable changes to this package are documented here. The format is based on 
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-08
+
 ### Added
 
 - A `Result` namespace holding every function, so `import { Result }` provides both the functions (`Result.ok`, `Result.isErr`, …) and the `Result` type. The named exports are unchanged.
