@@ -1,6 +1,6 @@
 {
   "name": "@cult-frog/result",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight, dependency-free Result type for explicit, type-safe error handling in TypeScript",
   "license": "MIT",
   "author": "Quin Partridge",
