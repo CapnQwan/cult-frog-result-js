@@ -1,0 +1,13 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    uses: CapnQwan/cult-frog-tooling-js/.github/workflows/reusable-publish.yml@main
