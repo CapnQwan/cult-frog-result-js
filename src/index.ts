@@ -9,9 +9,22 @@
  * @packageDocumentation
  */
 
-export * from './predicates/index.js';
-export * from './transforms/index.js';
-export * from './tryCatch/index.js';
-export * from './wrappers/index.js';
+import type { Result as ResultType } from './_types/index.js';
+
+export * from './functions.js';
+export * as Result from './functions.js';
 
 export type * from './_types/index.js';
+
+// `Result` is declared here rather than star-exported so that it merges with
+// the `Result` namespace above. A re-exported `Result` type would be hidden by
+// the namespace, leaving `Result<T, C>` unusable as a type.
+/**
+ * The outcome of an operation that can fail: either an `Ok` holding the value
+ * it produced, or an `Err` describing why it failed.
+ *
+ * @typeParam T - The type of the value produced on success.
+ * @typeParam C - The error codes the operation can fail with. Defaults to
+ * `string`.
+ */
+export type Result<T, C extends string = string> = ResultType<T, C>;

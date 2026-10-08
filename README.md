@@ -71,6 +71,21 @@ if (result.success) {
 }
 ```
 
+Every function is also available on the `Result` namespace, so a single import gives you both the functions and the `Result` type:
+
+```ts
+import { Result } from '@cult-frog/result';
+
+function parsePort(input: string): Result<number, PortError> {
+  // ...
+  return Result.ok(port);
+}
+
+const ports = inputs.map(parsePort).filter(Result.isOk);
+```
+
+`Result.ok` is the same function as `ok`, so the two styles can be mixed freely. The `Ok` and `Err` types are only exported individually.
+
 ## Guide
 
 ### The shape of a result
@@ -85,13 +100,13 @@ A `Result<T, C>` is one of two plain objects:
 { success: false, code: C, message: string, stack?: string }
 ```
 
-| Field | Variant | Description |
-| --- | --- | --- |
-| `success` | Both | `true` for a success, `false` for a failure. Use it to tell the two apart. |
-| `data` | `Ok` | The value the operation produced. |
-| `code` | `Err` | A stable, machine-readable code identifying the kind of failure. |
-| `message` | `Err` | A human-readable description of the failure, for logs and diagnostics. |
-| `stack` | `Err` | The stack trace of the error that caused the failure, when one is available. The property is absent, rather than `undefined`, when there is none. |
+| Field     | Variant | Description                                                                                                                                       |
+| --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `success` | Both    | `true` for a success, `false` for a failure. Use it to tell the two apart.                                                                        |
+| `data`    | `Ok`    | The value the operation produced.                                                                                                                 |
+| `code`    | `Err`   | A stable, machine-readable code identifying the kind of failure.                                                                                  |
+| `message` | `Err`   | A human-readable description of the failure, for logs and diagnostics.                                                                            |
+| `stack`   | `Err`   | The stack trace of the error that caused the failure, when one is available. The property is absent, rather than `undefined`, when there is none. |
 
 All fields are `readonly`.
 
@@ -203,11 +218,11 @@ const result = await tryCatchAsync(() => fetch(url));
 
 By default, whatever is thrown is converted into a failure with the code `'UNKNOWN'`:
 
-| Thrown value | `message` | `stack` |
-| --- | --- | --- |
-| An `Error`, an instance of a subclass, or an error from another realm (such as an iframe or a Node `vm` context) | The error's `message` | The error's `stack`, if it has one |
-| A string | The string | Not included |
-| Anything else | `'Non-Error value thrown'` | Not included |
+| Thrown value                                                                                                     | `message`                  | `stack`                            |
+| ---------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------------------------------- |
+| An `Error`, an instance of a subclass, or an error from another realm (such as an iframe or a Node `vm` context) | The error's `message`      | The error's `stack`, if it has one |
+| A string                                                                                                         | The string                 | Not included                       |
+| Anything else                                                                                                    | `'Non-Error value thrown'` | Not included                       |
 
 ### Custom error mapping
 
@@ -369,6 +384,12 @@ function fromThrown(thrown: unknown): Err<'UNKNOWN'>;
 ```
 
 Converts a thrown value into a failure with the code `'UNKNOWN'`, as described in [Wrapping code that throws](#wrapping-code-that-throws). This is the default conversion used by `tryCatch` and `tryCatchAsync`, and can be used as a fallback inside a custom `mapError`.
+
+### Namespace
+
+#### `Result`
+
+A namespace holding every function above: `Result.ok`, `Result.err`, `Result.isOk`, `Result.isErr`, `Result.tryCatch`, `Result.tryCatchAsync` and `Result.fromThrown`. Each member is the same function as the matching named export. The namespace shares its name with the `Result` type, so `import { Result }` provides both.
 
 ## License
 
